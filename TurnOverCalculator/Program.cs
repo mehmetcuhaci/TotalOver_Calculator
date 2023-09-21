@@ -15,17 +15,17 @@ namespace TurnOverCalculator
         {
 
 
-            TotalTur();
+            TotalTurnOver();
+            TurnOverCurrency();
 
         }
 
 
-        public static void TotalTur()
+        public static decimal TotalTurnOver()
         {
             try
             {     // giriş için gerekli url ve şifreleri vs ayarla
-                string totalTurnoverUrl = "https://service.foreks.com/feed/snapshot?code=XUTUM&f=Code,Last,DateTime,TotalTurnover";
-                string totalTurnoverCurrencyUrl = "https://service.foreks.com/feed/snapshot?domain=VIOP&exchange=BIST&status=ACTIVE&virtual=0&f=Code,TotalTurnoverCurrency";
+                string totalTurnoverUrl = "https://service.foreks.com/feed/snapshot?code=XUTUM&f=Code,Last,DateTime,TotalTurnover";               
 
                 string id = "atayatirimfeed";
                 string password = "n2&s5a9&";
@@ -50,11 +50,47 @@ namespace TurnOverCalculator
                     string content1 = response1.Content.ReadAsStringAsync().Result;
                     List<SnapshotData> totalTurnoverData = JsonSerializer.Deserialize<List<SnapshotData>>(content1);
 
-                    // gelen data içinde totalTunover'ı işle ve yazdır
-                    foreach (var item in totalTurnoverData)
-                    {
-                        Console.WriteLine($"TotalTurnover: {item.TotalTurnover}");
-                    }
+                    // Data listesine eriş 0 indeksi kullanarak ilk totalturnover öğesine ulaşıp çıktı al
+                   //  Console.WriteLine($"TotalTurnover: {totalTurnoverData[0].TotalTurnover}");
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Bir hata oluştu: {ex.Message}");
+            }
+
+
+            
+
+            return 0;
+
+        }
+
+
+
+        public static double TurnOverCurrency()
+        {
+            try
+            {
+                // giriş için gerekli url ve şifreleri vs ayarla
+                
+                string totalTurnoverCurrencyUrl = "https://service.foreks.com/feed/snapshot?domain=VIOP&exchange=BIST&status=ACTIVE&virtual=0&f=Code,TotalTurnoverCurrency";
+
+                string id = "atayatirimfeed";
+                string password = "n2&s5a9&";
+
+                // giriş bilgilerini convertle ve işle
+                string base64Credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{id}:{password}"));
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    // servise erişim için gerekli headerlar
+                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {base64Credentials}");
+                    httpClient.DefaultRequestHeaders.Add("company", "FOREKS");
+                    httpClient.DefaultRequestHeaders.Add("platform", "web");
+                    httpClient.DefaultRequestHeaders.Add("app-name", "ata_web");
+                    httpClient.DefaultRequestHeaders.Add("app-version", "1.0");
 
                     //İkinci url'ye istek gönder
                     HttpResponseMessage response2 = httpClient.GetAsync(totalTurnoverCurrencyUrl).Result;
@@ -64,30 +100,26 @@ namespace TurnOverCalculator
                     string content2 = response2.Content.ReadAsStringAsync().Result;
                     List<SnapshotDataCurrency> totalTurnoverCurrencyData = JsonSerializer.Deserialize<List<SnapshotDataCurrency>>(content2);
 
-                    //Console.WriteLine("\nTotalTurnoverCurrency data:");
-                    // gelen data içinde totalTurnoverCurrencyData'yı işle ve yazdır
-                    foreach (var item in totalTurnoverCurrencyData)
-                    {
-                        // Console.WriteLine($"TotalTurnoverCurrency: {item.TotalTurnoverCurrency}");
-                    }
+                                 
 
                     // toplamı hesapla ve yazdır
                     double totalCurrencySum = totalTurnoverCurrencyData.Sum(item => item.TotalTurnoverCurrency);
                     Console.WriteLine($"TotalTurnoverCurrency: {totalCurrencySum}");
+
+
                 }
+
+
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Bir hata oluştu: {ex.Message}");
+               Console.WriteLine($"Bir hata oluştu: {ex.Message}");
+
             }
 
-
-            Console.ReadLine();
-
-            
+           // Console.ReadLine();
+            return 0;
         }
-        
-
         
     }
    
