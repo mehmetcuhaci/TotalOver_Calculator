@@ -13,11 +13,8 @@ namespace TurnOverCalculator
     {
         static void Main(string[] args)
         {
-
-
             TotalTurnOver();
             TurnOverCurrency();
-
         }
 
 
@@ -51,31 +48,21 @@ namespace TurnOverCalculator
                     List<SnapshotData> totalTurnoverData = JsonSerializer.Deserialize<List<SnapshotData>>(content1);
 
                     // Data listesine eriş 0 indeksi kullanarak ilk totalturnover öğesine ulaşıp çıktı al
-                   //  Console.WriteLine($"TotalTurnover: {totalTurnoverData[0].TotalTurnover}");
-
-
+                    Console.WriteLine($"TotalTurnover: {totalTurnoverData[0].TotalTurnover}");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Bir hata oluştu: {ex.Message}");
             }
-
-
-            
-
             return 0;
-
         }
-
-
 
         public static double TurnOverCurrency()
         {
             try
             {
-                // giriş için gerekli url ve şifreleri vs ayarla
-                
+                // giriş için gerekli url ve şifreleri vs ayarla                
                 string totalTurnoverCurrencyUrl = "https://service.foreks.com/feed/snapshot?domain=VIOP&exchange=BIST&status=ACTIVE&virtual=0&f=Code,TotalTurnoverCurrency";
 
                 string id = "atayatirimfeed";
@@ -105,22 +92,16 @@ namespace TurnOverCalculator
                     // toplamı hesapla ve yazdır
                     double totalCurrencySum = totalTurnoverCurrencyData.Sum(item => item.TotalTurnoverCurrency);
                     Console.WriteLine($"TotalTurnoverCurrency: {totalCurrencySum}");
-
-
                 }
-
-
             }
             catch (Exception ex)
             {
                Console.WriteLine($"Bir hata oluştu: {ex.Message}");
 
             }
-
-           // Console.ReadLine();
+            Console.ReadLine();
             return 0;
-        }
-        
+        }       
     }
    
 
