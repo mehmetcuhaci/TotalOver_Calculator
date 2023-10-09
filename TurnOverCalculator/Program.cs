@@ -22,10 +22,10 @@ namespace TurnOverCalculator
         {
             try
             {     // giriş için gerekli url ve şifreleri vs ayarla
-                string totalTurnoverUrl = "https://service.foreks.com/feed/snapshot?code=XUTUM&f=Code,Last,DateTime,TotalTurnover";               
+                string totalTurnoverUrl = "******************";               
 
-                string id = "atayatirimfeed";
-                string password = "n2&s5a9&";
+                string id = "**********";
+                string password = "**********";
 
                 // giriş bilgilerini convertle ve işle
                 string base64Credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{id}:{password}"));
@@ -34,9 +34,9 @@ namespace TurnOverCalculator
                 {
                     // servise erişim için gerekli headerlar
                     httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {base64Credentials}");
-                    httpClient.DefaultRequestHeaders.Add("company", "FOREKS");
+                    httpClient.DefaultRequestHeaders.Add("company", "**********");
                     httpClient.DefaultRequestHeaders.Add("platform", "web");
-                    httpClient.DefaultRequestHeaders.Add("app-name", "ata_web");
+                    httpClient.DefaultRequestHeaders.Add("app-name", "**********");
                     httpClient.DefaultRequestHeaders.Add("app-version", "1.0");
 
                     // İlk url'ye giriş yap
@@ -63,10 +63,10 @@ namespace TurnOverCalculator
             try
             {
                 // giriş için gerekli url ve şifreleri vs ayarla                
-                string totalTurnoverCurrencyUrl = "https://service.foreks.com/feed/snapshot?domain=VIOP&exchange=BIST&status=ACTIVE&virtual=0&f=Code,TotalTurnoverCurrency";
+                string totalTurnoverCurrencyUrl = "**********";
 
-                string id = "atayatirimfeed";
-                string password = "n2&s5a9&";
+                string id = "**********";
+                string password = "**********";
 
                 // giriş bilgilerini convertle ve işle
                 string base64Credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{id}:{password}"));
@@ -74,9 +74,9 @@ namespace TurnOverCalculator
                 {
                     // servise erişim için gerekli headerlar
                     httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {base64Credentials}");
-                    httpClient.DefaultRequestHeaders.Add("company", "FOREKS");
+                    httpClient.DefaultRequestHeaders.Add("company", "**********");
                     httpClient.DefaultRequestHeaders.Add("platform", "web");
-                    httpClient.DefaultRequestHeaders.Add("app-name", "ata_web");
+                    httpClient.DefaultRequestHeaders.Add("app-name", "**********");
                     httpClient.DefaultRequestHeaders.Add("app-version", "1.0");
 
                     //İkinci url'ye istek gönder
